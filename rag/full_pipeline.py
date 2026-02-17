@@ -20,8 +20,18 @@ Answer:
 """
 
     def ask(self, question):
-        context = self.rag.run(question, k=3)
-        prompt = self.build_prompt(context, question)
+        chunks = self.rag.retrieve_context(question, k=5)
+        context = self.rag.build_context(chunks)
 
-        response = self.llm.generate(prompt)
-        return response
+        prompt = self.build_prompt(context, question)
+        answer = self.llm.generate(prompt)
+
+        sources = [
+            f"{c['source']} page {c['page']}"
+            for c in chunks
+        ]
+
+        return {
+            "answer": answer,
+            "sources": list(set(sources))
+        }

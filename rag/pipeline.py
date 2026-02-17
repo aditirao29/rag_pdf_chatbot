@@ -11,8 +11,11 @@ class RAGPipeline:
     
     def build_context(self,chunks):
         """combine retrieved chunks into single context string"""
-        return "\n\n".join(chunks)
-    
+        context_parts = []
+        for i in chunks:
+            context_parts.append(f"[Source: {i['source']} Page:{i['page']}]\n{i['text']}")
+        return "\n\n".join(context_parts)
+        
     def run(self,query,k=3):
         """
         full pipeline:

@@ -1,12 +1,14 @@
-import fitz  # pymupdf
+import fitz
 
 def extract_text_from_pdf(pdf_path):
-    text = ""
-    try:
-        doc = fitz.open(pdf_path)
-        for page in doc:
-            text+=page.get_text()
-        doc.close()
-    except Exception as e:
-        print("Error reader pdf: ",e)
-    return text
+    pages = []
+    doc = fitz.open(pdf_path)
+    for page_num, page in enumerate(doc):
+        text = page.get_text("text")
+        pages.append({
+            "text": text,
+            "page": page_num + 1,
+            "source": pdf_path
+        })
+    doc.close()
+    return pages
