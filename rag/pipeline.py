@@ -16,7 +16,7 @@ class RAGPipeline:
             context_parts.append(f"[Source: {i['source']} Page:{i['page']}]\n{i['text']}")
         return "\n\n".join(context_parts)
         
-    def run(self,query,k=3):
+    def run(self,query,k=10):
         """
         full pipeline:
         query -> retrieve -> build context

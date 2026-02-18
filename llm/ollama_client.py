@@ -13,5 +13,6 @@ class OllamaClient:
         }
 
         response = requests.post(self.url, json=payload)
-        print("Raw response:", response.json())
-        return response.json().get("response", "No response field found")
+        data = response.json()
+        print("LLM response:", data.get("response"))
+        return data.get("response", "No response field found")

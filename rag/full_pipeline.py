@@ -5,22 +5,27 @@ class FullRAGPipeline:
 
     def build_prompt(self, context, question):
         return f"""
-You are a helpful assistant.
+    You are a helpful and friendly assistant.
 
-Answer the question ONLY using the provided context.
-If the answer is not in the context, say "I don't know".
+    Use the information below to answer the question clearly and naturally.
 
-Context:
-{context}
+    Do NOT mention "context", "provided text", or "information above".
+    Just answer like a normal chatbot.
 
-Question:
-{question}
+    If the answer cannot be found, say:
+    "I’m not sure about that."
 
-Answer:
-"""
+    Information:
+    {context}
+
+    Question:
+    {question}
+
+    Answer:
+    """
 
     def ask(self, question):
-        chunks = self.rag.retrieve_context(question, k=5)
+        chunks = self.rag.retrieve_context(question, k=10)
         context = self.rag.build_context(chunks)
 
         prompt = self.build_prompt(context, question)
@@ -30,6 +35,9 @@ Answer:
             f"{c['source']} page {c['page']}"
             for c in chunks
         ]
+        print("\n--- RETRIEVED CHUNKS ---")
+        for c in chunks:
+            print(c["text"][:200])
 
         return {
             "answer": answer,
