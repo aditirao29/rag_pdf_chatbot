@@ -169,6 +169,15 @@ rag_pdf_chatbot/
 
 ---
 
+## Screenshots
+
+<p align="center">
+  <img src="screenshots/first.png" width="350" />
+  <img src="screenshots/second.png" width="368" />
+</p>
+
+---
+
 ## Future Improvements
 
 * Conversation memory
