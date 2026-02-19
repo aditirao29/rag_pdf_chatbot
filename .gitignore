@@ -9,3 +9,9 @@ venv/
 
 uploads/
 test/
+
+ollama_data/
+*.log
+
+.DS_Store
+Thumbs.db

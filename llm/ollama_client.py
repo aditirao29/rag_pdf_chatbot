@@ -3,7 +3,7 @@ import requests
 class OllamaClient:
     def __init__(self,model="mistral"):
         self.model = model
-        self.url = "http://localhost:11434/api/generate"
+        self.url = "http://ollama:11434/api/generate"
     
     def generate(self, prompt):
         payload = {
